@@ -11,11 +11,26 @@ function isValid(currentNumer, currentPosition, board, size, boxSize) {
 }
 
 function findEmpty(board, size) {
-
+  for (let i = 0; i < size; i++) {
+    for (let j = 0; j < size; j++) {
+      if (board[i][j] === '-') {
+        return [i, j];
+      }
+    }
+  }
+  return null;
 }
 
 function getArrayFromString(boardString) {
-  
+  const arr = [];
+  let count = 0;
+  for (let i = 0; i < 9; i++) {
+    arr[i] = [];
+    for (let j = 0; j < 9; j++) {
+      arr[i].push(boardString[count++]);
+    }
+  }
+  return arr;
 }
 /**
  * Принимает игровое поле в том формате, в котором его вернули из функции solve.
