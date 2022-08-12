@@ -34,6 +34,34 @@ function prettyBoard(board) {
 
 }
 
+function isValid(currentNumber, currentPosition, board, size, boxSize) {
+  const [row, cell] = currentPosition;
+  //Чекаем строки
+  for (let i = 0; i < size; i++) {
+    if (board[i][cell] === currentNumber && i !== row) {
+      return false;
+    }
+  }
+  //Чекаем колонки
+  for (let i = 0; i < size; i++) {
+    if (board[row][i] === currentNumber && i !== cell) {
+      return false;
+    }
+  }
+  // чекаем квадрат/бокс 3х3
+  //boxRows вычисляем индекс строки в которой находится квадрат который мы будем щас проверять
+  //boxCells вычисляем индекс колонки в колторой нахоидтся квадрат...
+  const boxRows = Math.floor(row / boxSize) * boxSize;
+  const boxCells = Math.floor(cell / boxSize) * boxSize;
+  for (let i = boxRows; i < boxRows + boxSize; i++) {
+    for (let j = boxCells; j < boxCells + boxSize; j++) {
+      if (board[i][j] === currentNumber && i !== row && j !== cell) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
 // Экспортировать функции для использования в другом файле (например, readAndSolve.js).
 module.exports = {
   solve,
