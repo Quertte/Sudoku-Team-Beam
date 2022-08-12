@@ -22,7 +22,7 @@ function getArrayFromString(boardString) {
  * Возвращает булевое значение — решено это игровое поле или нет.
  */
 function isSolved(board) {
-
+  return board.every(el => !el.includes('-'))
 }
 
 /**
@@ -31,7 +31,7 @@ function isSolved(board) {
  * Подумай, как симпатичнее сформировать эту строку.
  */
 function prettyBoard(board) {
-
+  return board.map(el => el.join(' | ')).join('\n')
 }
 
 // Экспортировать функции для использования в другом файле (например, readAndSolve.js).
