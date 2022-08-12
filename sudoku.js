@@ -4,10 +4,36 @@
  * Договорись со своей командой, в каком формате возвращать этот результат.
  */
 function solve(boardString) {
-}
+  // board - массив преобразованный из строки boardString функцией getArrayFromString 
+  const board = getArrayFromString(boardString);
+  // size - размер нашего судоку
+  function solveSudoku() {
+    const size = board.length;
+    // boxSize - размер нашего сектора 3х3 , 4х4, 5х5
+    const boxSize = Math.sqrt(size);
+    // текущая позиция пустой ячейки
+    const currentPosition = findEmpty(board, size);
 
-function isValid(currentNumer, currentPosition, board, size, boxSize) {
+    if (currentPosition === null) {
+      return true;
+    }
 
+    for (let i = 1; i < size + 1; i++) {
+      const currentNumber = i.toString();
+      const isValidate = isValid(currentNumber, currentPosition, board, size, boxSize);
+      if (isValidate) {
+        const [x, y] = currentPosition;
+        board[x][y] = currentNumber;
+
+        if (solveSudoku()) {
+          return true;
+        }
+        board[x][y] = '-';
+      }
+    }
+  }
+  solveSudoku();
+  return board;
 }
 
 function findEmpty(board, size) {
